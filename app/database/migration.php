@@ -5,12 +5,10 @@ require __DIR__ . '/../bootstrap.php';
 class Migrations {
     /**
      * Add your migrations to the $migrations array
-     *
      */
     protected $migrations = [
-        NewsArticlesTable::class,
+        'App\Database\Schemas\NewsArticlesTable',
     ];
-
 
     function __construct(){
         echo "Running Migrations...\r\n" ;
