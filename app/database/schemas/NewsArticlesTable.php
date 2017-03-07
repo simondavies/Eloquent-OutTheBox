@@ -23,7 +23,7 @@ namespace App\Database\Schemas;
              $table->boolean('archived')->default(false);
  			 $table->boolean('status')->default(true);
  			 $table->dateTime('published_at')->nullable();
-             $table->dateTime('dsiplay_until')->nullable();
+             $table->dateTime('display_until')->nullable();
              $table->timestamps();
          });
      }

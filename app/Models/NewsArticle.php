@@ -18,6 +18,7 @@ class NewsArticle extends Eloquent
      */
     protected $casts = [
         'status' => 'boolean',
+        'archived' => 'boolean',
     ];
     /**
      * enable the writable fields for mass asignment
@@ -34,5 +35,34 @@ class NewsArticle extends Eloquent
          'published_at',
          'dsiplay_until'
      ];
+
+     public function active(){
+         return $this->whereStatus(true)
+                    ->whereArchived(false)
+                    ->whereDate('published_at','<=',\Carbon\Carbon::now())
+                    ->whereDate('display_until','>=',\Carbon\Carbon::now())
+                    ->orderBy('published_at', 'asc')
+                    ->get();
+     }
+
+     public function archived(){
+         return $this->whereArchived(true)
+                    ->whereStatus(true)
+                    ->whereDate('published_at','<=',\Carbon\Carbon::now())
+                    ->whereDate('display_until','>=',\Carbon\Carbon::now())
+                    ->orderBy('published_at', 'asc')
+                    ->get();
+
+     }
+
+     public function scheduled(){
+         return $this->whereStatus(true)
+                    ->whereArchived(false)
+                    ->whereDate('published_at','>',\Carbon\Carbon::now())
+                    ->whereDate('display_until','>',\Carbon\Carbon::now())
+                    ->orderBy('published_at', 'desc')
+                    ->get();
+
+     }
 
 }

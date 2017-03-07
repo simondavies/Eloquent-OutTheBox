@@ -8,7 +8,7 @@
   *
   */
  $seeders = [
-      NewsArticlesTableSeeder::class,
+      'App\Database\Seeders\NewsArticlesTableSeeder',
  ];
 
 /**
