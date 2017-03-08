@@ -35,7 +35,11 @@ class NewsArticle extends Eloquent
          'published_at',
          'dsiplay_until'
      ];
-
+     /**
+      * get all active artilces
+      *
+      * @return Collection/Object
+      */
      public function active(){
          return $this->whereStatus(true)
                     ->whereArchived(false)
@@ -44,7 +48,11 @@ class NewsArticle extends Eloquent
                     ->orderBy('published_at', 'asc')
                     ->get();
      }
-
+     /**
+      * get all archived artilces
+      *
+      * @return Collection/Object
+      */
      public function archived(){
          return $this->whereArchived(true)
                     ->whereStatus(true)
@@ -54,12 +62,15 @@ class NewsArticle extends Eloquent
                     ->get();
 
      }
-
+     /**
+      * get all scheduled artilces
+      *
+      * @return Collection/Object
+      */
      public function scheduled(){
          return $this->whereStatus(true)
                     ->whereArchived(false)
                     ->whereDate('published_at','>',\Carbon\Carbon::now())
-                    ->whereDate('display_until','>',\Carbon\Carbon::now())
                     ->orderBy('published_at', 'desc')
                     ->get();
 

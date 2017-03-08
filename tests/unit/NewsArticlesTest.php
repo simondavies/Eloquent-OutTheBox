@@ -11,7 +11,9 @@ use App\Database\Seeders\NewsArticlesTableSeeder;
 
 class NewsArticlesTest extends TestCase
 {
-
+    /**
+     *
+     */
     public function setUp(){
 
         $this->faker = Factory::create();
@@ -21,11 +23,13 @@ class NewsArticlesTest extends TestCase
         $this->title = 'Welcome to the news article';
 
     }
-
-    public function tearDwon(){
+    /**
+     * [tearDown description]
+     * @return [type] [description]
+     */
+    public function tearDown(){
 
         unset($this->articles);
-
 
     }
 
@@ -172,8 +176,45 @@ class NewsArticlesTest extends TestCase
 
     }
 
+    /** @test */
+    function deleted_a_requested_article(){
+
+        $article = $this->articles->find(3);
+
+        $this->assertEquals(3, $article->id);
+
+        $result = $article->delete();
+
+        $article = $this->articles->find(3);
+
+        $this->assertEmpty($article);
+
+    }
+
+    /** @test */
+    function update_a_selected_artilce(){
+
+        $new_title = 'im a new title';
+        $new_excerpt = 'i have changed the excerpt section';
+
+        $article = $this->articles->find(2);
+
+        $current_title = $article->title;
+        $current_excerpt =  $article->excerpt;
+
+        $article->title = $new_title;
+        $article->excerpt = $new_excerpt;
+        $article->save();
+
+        $update_article = $this->articles->find(2);
+
+        $this->assertEquals($update_article->title, $new_title);
+        $this->assertEquals($update_article->excerpt, $new_excerpt);
+
+    }
+
+
     /**
-     * create a total number of dummy news articles
      * @param  Integer $total
      * @return Void
      */
@@ -183,7 +224,10 @@ class NewsArticlesTest extends TestCase
         $article_Seeder->run();
 
     }
-
+    /**
+    * @param  App\Models\NewsArticle $artilces
+    * @return Boolean
+     */
     function checkDatesAreGreaterThan($artilces){
         $current = NULL;
         $previous = NULL;
@@ -195,7 +239,10 @@ class NewsArticlesTest extends TestCase
         }
 
     }
-
+    /**
+     * @param  App\Models\NewsArticle $artilces
+     * @return Boolean
+     */
     function checkDatesAreLessThan($artilces){
 
         $current = NULL;
