@@ -75,5 +75,13 @@ class NewsArticle extends Eloquent
                     ->get();
 
      }
+     /**
+      *
+      * @param  String $query
+      * @return Collection/Object       
+      */
+     public function article($query){
+         return $this->whereSlug($query)->first();
+     }
 
 }

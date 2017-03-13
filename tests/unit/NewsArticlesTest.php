@@ -69,6 +69,16 @@ class NewsArticlesTest extends TestCase
     }
 
     /** @test */
+    function get_a_news_article_form_slug()
+    {
+        $slug = str_slug($this->title);
+
+        $article = $this->articles->article($slug);
+
+        $this->assertEquals($article->title, $this->title);
+    }
+
+    /** @test */
     function add_several_article_to_test_seeder(){
 
         $total_artilces_to_create = 10;
